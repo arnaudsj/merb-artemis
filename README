@@ -1,0 +1,5 @@
+===========
+= Artemis =
+===========
+
+Minimal Merb application with basic skelleton for Oauth Provider (using merb_oauth gem)
