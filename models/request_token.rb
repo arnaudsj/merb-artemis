@@ -2,7 +2,10 @@ class RequestToken < Token
   
   def authorize!(options={})
     return false if authorized?
-    self.user = User.find(:email => options[:email])
+    #puts options
+    #options = {:email => "arnaudsj@gmail.com"}
+    #self.user = User.get(2)
+    self.user = find(:email => options[:email])
     self.update_attributes(:authorized_at => Time.now)
   end
   

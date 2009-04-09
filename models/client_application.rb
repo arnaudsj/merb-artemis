@@ -22,7 +22,7 @@ class ClientApplication
   end
   
   def server
-    @oauth_server ||= OAuth::Server.new "http://your.site"
+    @oauth_server ||= OAuth::Server.new "http://localhost:4000"
   end
   
 end

@@ -1,0 +1,4 @@
+TODO:
+	-Fix bug when using :header authentication. Right now only :query_string works (possible issue in dependency merb_oauth)
+	-Fix bug with /activate - right now this prevents the test from completing without hacking the DB. Possible issue with Datamapper definitions.
+	-Write proper Rspec for testing the whole skelleton!

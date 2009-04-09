@@ -1,11 +1,3 @@
-class Artemis < Merb::Controller
-
-  
-end
-
-
-
-
 class Oauth < Merb::Controller
 
   before :require_signed_request, :only => [:request_token]
@@ -21,7 +13,6 @@ class Oauth < Merb::Controller
   
   # POST /oauth/request_token
   def request_token
-    
     @token = RequestToken.create :client_application => current_application
 
     if @token.valid?
@@ -45,8 +36,12 @@ class Oauth < Merb::Controller
   
   # POST /oauth/authorize
   def authorize
+    puts "DEBUG AUTHORIZE: #{params}"
+
     @token = RequestToken.first(:token => params[:oauth_token])
-    
+
+    puts "DEBUG AUTHORIZE USER: #{params[:user]}"
+
     @token.authorize!(params[:user])
           
     redirect (params[:oauth_callback] || @token.client_application.callback_url) + "?oauth_token=#{@token.token}"
@@ -67,7 +62,11 @@ class Oauth < Merb::Controller
   # Called from merb_oauth OAuthMixin
   override! :find_application_by_key 
   def find_application_by_key(key)
-    ClientApplication.first(:consumer_key => key)
+    begin
+      ClientApplication.first(:consumer_key => key)      
+    rescue Exception => e
+      render "Sorry, Aplication not registered", :status => 300
+    end
   end
   
   # Called from merb_oauth OAuthMixin

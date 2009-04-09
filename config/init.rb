@@ -17,6 +17,7 @@ dependency "dm-validations"
 
 Merb::BootLoader.before_app_loads do
   # This will get executed after dependencies have been loaded but before your app's classes have loaded.
+  Merb::Controller.send :include, OAuthMixin
 end
  
 Merb::BootLoader.after_app_loads do
@@ -31,7 +32,7 @@ Merb::Router.prepare do
 end
 
 Merb::Config.use { |c|
-  c[:environment]         = 'production',
+  c[:environment]         = 'development',
   c[:framework]           = {},
   c[:log_level]           = :debug,
   c[:log_stream]          = STDOUT,
@@ -46,5 +47,3 @@ Merb::Config.use { |c|
   c[:reload_templates]    = true,
   c[:reload_time]         = 0.5
 }
-
-Merb::Controller.send :include, OAuthMixin
